@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Comment } = require('../../models');
+const utilsAuth = require('../../utils/auth');
 
 //Get all comments
 router.get('/', (req, res) => {
@@ -12,21 +13,23 @@ router.get('/', (req, res) => {
   });
 
 // Post a new comment
-router.post('/', (req, res) => {
-  Comment.create({
-      comment_text: req.body.comment_text,
-      post_id: req.body.post_id,
-      user_id: req.user_id
-    })
-      .then(dbCommentData => res.json(dbCommentData))
-      .catch(err => {
-        console.log(err);
-        res.status(400).json(err);
-      });
+router.post('/', utilsAuth, (req, res) => {
+    if (req.session) {
+        Comment.create({
+          comment_text: req.body.comment_text,
+          post_id: req.body.post_id,
+          user_id: req.session.user_id
+        })
+          .then(dbCommentData => res.json(dbCommentData))
+          .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+        });
+    }
 });
 
 // Delete a comment
-router.delete('/:id', (req, res) => {
+router.delete('/:id', utilsAuth, (req, res) => {
     Comment.destroy({
         where: {
           id: req.params.id
