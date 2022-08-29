@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-// user name and password
+// unpser name and password
 require('dotenv').config();
 
 let sequelize;
