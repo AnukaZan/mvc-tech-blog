@@ -22,7 +22,7 @@ Log into mysql with "mysql -u <mysql username> -p"  in your terminal in the root
 To start the server type "npm start" into your terminal and navigate to http://localhost:3001/ in your browser.  
 [Heroku Deployment](https://protected-journey-29022.herokuapp.com/)
 
-![Homepage](mvc tech blog.png)
+![Homepage](/mvc tech blog.png)
 
 ## License
 MIT
